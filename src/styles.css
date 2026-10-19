@@ -1,4 +1,4 @@
-/* Resume parser mock — plain CSS, no framework. */
+/* Resume parser — plain CSS, no framework. */
 
 :root {
   --bg: #0f1115;
@@ -229,8 +229,8 @@ main {
 }
 
 .badge-good { color: var(--good); background: rgba(62, 207, 142, 0.12); }
-.badge-mid { color: var(--warn); background: rgba(242, 181, 68, 0.12); }
-.badge-bad { color: var(--bad); background: rgba(255, 107, 107, 0.12); }
+.badge-warn { color: var(--warn); background: rgba(242, 181, 68, 0.12); }
+.badge-bad  { color: var(--bad);  background: rgba(255, 107, 107, 0.12); }
 
 .score {
   display: flex;
@@ -242,7 +242,7 @@ main {
 
 /* The dial: a conic-gradient painted from 0 to --score percent, with an
    ::after disc in the card colour punched through the middle to leave a ring.
-   --score is a unitless number set from JS. */
+   --score is a unitless number, so calc() turns it into a percentage. */
 .score-ring {
   --size: 132px;
   width: var(--size);
@@ -252,7 +252,7 @@ main {
   display: grid;
   place-items: center;
   background: conic-gradient(
-    var(--accent) calc(var(--score) * 1%),
+    var(--accent) calc(var(--score, 0) * 1%),
     var(--surface-2) 0
   );
 }
@@ -301,7 +301,7 @@ main {
 
 .meter-fill {
   height: 100%;
-  width: calc(var(--pct) * 1%);
+  width: calc(var(--pct, 0) * 1%);
   border-radius: 999px;
   transition: width 0.4s ease;
 }
@@ -328,7 +328,7 @@ main {
 }
 
 .pill-present { color: var(--good); background: rgba(62, 207, 142, 0.12); }
-.pill-missing { color: var(--bad); background: rgba(255, 107, 107, 0.12); }
+.pill-missing { color: var(--bad);  background: rgba(255, 107, 107, 0.12); }
 
 .chips {
   list-style: none;
